@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:20.04
 
 ENV COLOR "red"
 RUN apt-get update -y && \
