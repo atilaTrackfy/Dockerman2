@@ -1,19 +1,11 @@
-FROM ubuntu:20.04
+FROM python:3
 
-ENV COLOR "red"
-RUN apt-get update -y && \
-    apt-get install -y python-pip python-dev
+WORKDIR /usr/src/app
 
-# We copy just the requirements.txt first to leverage Docker cache
-COPY ./requirements.txt /app/requirements.txt
+COPY . .
 
-WORKDIR /app
-
-RUN pip install -r requirements.txt
-
-COPY . /app
+RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 8080
-ENTRYPOINT [ "python" ]
 
-CMD [ "app.py" ]
+CMD ["python", "./app.py"]
