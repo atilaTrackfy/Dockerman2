@@ -1,11 +1,14 @@
-FROM python:3
+FROM registry.access.redhat.com/ubi8/python-36
 
-WORKDIR /usr/src/app
+# Add application sources with correct permissions for OpenShift
+USER 0
+ADD app-src .
+RUN chown -R 1001:0 ./
+USER 1001
 
-COPY . .
+# Install the dependencies
+RUN pip install -U "pip>=19.3.1" && \
+    pip install -r requirements.txt && \
 
-RUN pip install --no-cache-dir -r requirements.txt
-
-EXPOSE 8080
-
-CMD ["python", "./app.py"]
+# Run the application
+CMD python app.py
