@@ -2,7 +2,7 @@ FROM registry.access.redhat.com/ubi8/python-36
 
 # Add application sources with correct permissions for OpenShift
 USER 0
-ADD app-src .
+ADD . .
 RUN chown -R 1001:0 ./
 USER 1001
 
